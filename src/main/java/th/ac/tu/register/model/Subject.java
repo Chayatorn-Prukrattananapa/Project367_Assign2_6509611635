@@ -1,45 +1,22 @@
 package th.ac.tu.register.model;
 
-import java.util.Arrays;
-import jakarta.persistence.GeneratedValue;
-
 public class Subject {
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long id;
     private String subjectId;
     private String subjectName;
     private int credit;
-    private int maxStudent;
-    private String[] preRequisite;
-    private String description;
-
-    public Subject() {}
+    private int maxSeats;
+    private String section;
+    private int availableStudents;
     
-    public Subject(Long id, String subjectId, String subjectName, int credit, int maxStudent, String description) {
-        this.id = id;
+    public Subject() {}
+
+    public Subject(String subjectId, String subjectName, int credit, int maxStudent, String section, int availableStudents) {
         this.subjectId = subjectId;
         this.subjectName = subjectName;
         this.credit = credit;
-        this.maxStudent = maxStudent;
-        this.preRequisite = null;
-        this.description = description;
-    }
-
-    public Subject(String subjectId, String subjectName, int credit, int maxStudent, String[] preRequisite, String description) {
-        this.subjectId = subjectId;
-        this.subjectName = subjectName;
-        this.credit = credit;
-        this.maxStudent = maxStudent;
-        this.preRequisite = preRequisite;
-        this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.maxSeats = maxStudent;
+        this.section = section;
+        this.availableStudents = availableStudents;
     }
 
     public String getSubjectId() {
@@ -66,41 +43,40 @@ public class Subject {
         this.credit = credit;
     }
 
-    public int getMaxStudent() {
-        return maxStudent;
+    public int getMaxSeats() {
+        return maxSeats;
     }
 
-    public void setMaxStudent(int maxStudent) {
-        this.maxStudent = maxStudent;
+    public void setMaxSeats(int maxStudent) {
+        this.maxSeats = maxStudent;
     }
 
-    public String[] getPreRequisite() {
-        return preRequisite;
+    public String getSection() {
+        return section;
     }
 
-    public void setPreRequisite(String[] preRequisite) {
-        this.preRequisite = preRequisite;
+    public void setSection(String section) {
+        this.section = section;
     }
 
-    public String getDescription() {
-        return description;
+    public int getAvailableStudents() {
+        return availableStudents;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAvailableStudents(int availableStudents) {
+        this.availableStudents = availableStudents;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((subjectId == null) ? 0 : subjectId.hashCode());
         result = prime * result + ((subjectName == null) ? 0 : subjectName.hashCode());
         result = prime * result + credit;
-        result = prime * result + maxStudent;
-        result = prime * result + Arrays.hashCode(preRequisite);
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + maxSeats;
+        result = prime * result + ((section == null) ? 0 : section.hashCode());
+        result = prime * result + availableStudents;
         return result;
     }
 
@@ -113,11 +89,6 @@ public class Subject {
         if (getClass() != obj.getClass())
             return false;
         Subject other = (Subject) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
         if (subjectId == null) {
             if (other.subjectId != null)
                 return false;
@@ -130,22 +101,22 @@ public class Subject {
             return false;
         if (credit != other.credit)
             return false;
-        if (maxStudent != other.maxStudent)
+        if (maxSeats != other.maxSeats)
             return false;
-        if (!Arrays.equals(preRequisite, other.preRequisite))
-            return false;
-        if (description == null) {
-            if (other.description != null)
+        if (section == null) {
+            if (other.section != null)
                 return false;
-        } else if (!description.equals(other.description))
+        } else if (!section.equals(other.section))
+            return false;
+        if (availableStudents != other.availableStudents)
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Subject [id=" + id + ", subjectId=" + subjectId + ", subjectName=" + subjectName + ", credit=" + credit
-                + ", maxStudent=" + maxStudent + ", preRequisite=" + Arrays.toString(preRequisite) + ", description="
-                + description + "]";
+        return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", credit=" + credit
+                + ", maxStudent=" + maxSeats + ", section=" + section + ", availableStudents=" + availableStudents
+                + "]";
     }
 }
