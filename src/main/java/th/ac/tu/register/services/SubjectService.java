@@ -1,15 +1,20 @@
 package th.ac.tu.register.services;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import th.ac.tu.register.model.Subject;
 import th.ac.tu.register.repository.SubjectRepository;
+
+/**
+ * Requests to Tae: 
+ *                  
+ * Respond to Tae:  EnrolledStatus, List of subjectId 
+ */
 
 @Service
 public class SubjectService {
@@ -19,12 +24,18 @@ public class SubjectService {
         this.subjectRepository = subjectRepository;
     }
 
+    // Method Part
+
     public List<Subject> findAll() {
         return subjectRepository.findAll();
     }
 
-    public Subject findBySubjectId(String SubjectId) {
-        return subjectRepository.findBySubjectId(SubjectId);
+    public Subject findBySubjectId(String subjectId) {
+        Subject subject = subjectRepository.findBySubjectIdIgnoreCase(subjectId);
+        if (subject == null) {
+            throw new EntityNotFoundException("Subject not found with subjectId: " + subjectId);
+        }
+        return subject;
     }
 
     public ResponseEntity<Subject> addSubject(Subject subject) {

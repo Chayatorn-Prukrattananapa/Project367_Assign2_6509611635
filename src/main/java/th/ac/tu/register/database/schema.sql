@@ -7,5 +7,8 @@ CREATE TABLE Register.Subjects (
     credits INT NOT NULL CHECK (credits > 0),
     maxSeats INT NOT NULL CHECK (maxSeats > 0),
     availableSeats INT NOT NULL CHECK (availableSeats >= 0 AND availableSeats <= maxSeats)
-    PRIMARY KEY (subjectId, section)
+    PRIMARY KEY (subjectId);
 );
+
+ALTER TABLE Register.Subjects
+DROP PRIMARY KEY;

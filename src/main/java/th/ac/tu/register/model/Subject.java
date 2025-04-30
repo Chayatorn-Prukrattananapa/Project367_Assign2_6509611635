@@ -1,21 +1,28 @@
 package th.ac.tu.register.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "subjects")
 public class Subject {
+    @Id
     private String subjectId;
     private String subjectName;
     private int credit;
     private int maxSeats;
-    private String section;
     private int availableStudents;
     
     public Subject() {}
 
-    public Subject(String subjectId, String subjectName, int credit, int maxStudent, String section, int availableStudents) {
+    public Subject(String subjectId, String subjectName, int credit, int maxStudent, int availableStudents) {
         this.subjectId = subjectId;
         this.subjectName = subjectName;
         this.credit = credit;
         this.maxSeats = maxStudent;
-        this.section = section;
         this.availableStudents = availableStudents;
     }
 
@@ -51,14 +58,6 @@ public class Subject {
         this.maxSeats = maxStudent;
     }
 
-    public String getSection() {
-        return section;
-    }
-
-    public void setSection(String section) {
-        this.section = section;
-    }
-
     public int getAvailableStudents() {
         return availableStudents;
     }
@@ -75,7 +74,6 @@ public class Subject {
         result = prime * result + ((subjectName == null) ? 0 : subjectName.hashCode());
         result = prime * result + credit;
         result = prime * result + maxSeats;
-        result = prime * result + ((section == null) ? 0 : section.hashCode());
         result = prime * result + availableStudents;
         return result;
     }
@@ -103,11 +101,6 @@ public class Subject {
             return false;
         if (maxSeats != other.maxSeats)
             return false;
-        if (section == null) {
-            if (other.section != null)
-                return false;
-        } else if (!section.equals(other.section))
-            return false;
         if (availableStudents != other.availableStudents)
             return false;
         return true;
@@ -115,8 +108,9 @@ public class Subject {
 
     @Override
     public String toString() {
-        return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", credit=" + credit
-                + ", maxStudent=" + maxSeats + ", section=" + section + ", availableStudents=" + availableStudents
-                + "]";
+        return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", credit=" + credit + ", maxSeats="
+                + maxSeats + ", availableStudents=" + availableStudents + "]";
     }
+
+    
 }

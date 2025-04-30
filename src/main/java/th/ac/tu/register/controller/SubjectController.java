@@ -4,11 +4,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 import th.ac.tu.register.model.Subject;
 import th.ac.tu.register.services.SubjectService;
 
 
 @RestController
+@RequestMapping("/api/subject")
 public class SubjectController {
     private final SubjectService subjectService;
 
@@ -16,24 +18,27 @@ public class SubjectController {
         this.subjectService = SubjectService;
     }
 
-    @PostMapping("/api/subject")
+    @GetMapping
     public List<Subject> findAll() {
         return subjectService.findAll();
     }    
 
-    @GetMapping("/subjects/{subjectId}/{section}")
-    public Subject findBySubjectId(@PathVariable String subjectId, @PathVariable String section) {
-        return subjectService.findBySubjectId(subjectId, section);
+
+
+    @GetMapping("/{subjectId}")
+    public Subject findBySubjectId(@PathVariable String subjectId) {
+        return subjectService.findBySubjectId(subjectId);
     }
 
-    @PutMapping("/api/subject/add-subject/{subjectId}/{section}")
-    public ResponseEntity<Subject> addSubject(@PathVariable String subjectId, @PathVariable String section) {
-        Subject subject = subjectService.findBySubjectId(subjectId, section);
+    @PutMapping("/add/{subjectId}")
+    public ResponseEntity<Subject> addSubject(@PathVariable String subjectId) {
+        Subject subject = subjectService.findBySubjectId(subjectId);
         return subjectService.addSubject(subject);
     }
-    @PutMapping("/api/subject/withdraw-subject/{subjectId}/{section}")
-    public ResponseEntity<Subject> withdrawSubject(@PathVariable String subjectId, @PathVariable String section) {
-        Subject subject = subjectService.findBySubjectId(subjectId, section);
+    @PutMapping("/withdraw/{subjectId}")
+    public ResponseEntity<Subject> withdrawSubject(@PathVariable String subjectId) {
+        // Assuming you want to get the subjectId from the request body
+        Subject subject = subjectService.findBySubjectId(subjectId);
         return subjectService.withdrawSubject(subject);
     }
 }
