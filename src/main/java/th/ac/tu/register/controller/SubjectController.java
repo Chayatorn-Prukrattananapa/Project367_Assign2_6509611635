@@ -18,23 +18,26 @@ public class SubjectController {
         this.subjectService = SubjectService;
     }
 
+    // Find all subjects
     @GetMapping
     public List<Subject> findAll() {
         return subjectService.findAll();
     }    
 
-
-
+    // Find subject by subjectId
     @GetMapping("/{subjectId}")
     public Subject findBySubjectId(@PathVariable String subjectId) {
         return subjectService.findBySubjectId(subjectId);
     }
 
+    // Add or withdraw subject
     @PutMapping("/add/{subjectId}")
     public ResponseEntity<Subject> addSubject(@PathVariable String subjectId) {
         Subject subject = subjectService.findBySubjectId(subjectId);
         return subjectService.addSubject(subject);
     }
+
+    // Withdraw subject
     @PutMapping("/withdraw/{subjectId}")
     public ResponseEntity<Subject> withdrawSubject(@PathVariable String subjectId) {
         // Assuming you want to get the subjectId from the request body
