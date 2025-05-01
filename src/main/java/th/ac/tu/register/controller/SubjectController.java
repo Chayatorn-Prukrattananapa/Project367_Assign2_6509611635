@@ -8,8 +8,10 @@ import java.util.List;
 import th.ac.tu.register.model.Subject;
 import th.ac.tu.register.services.SubjectService;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -61,4 +63,13 @@ public class SubjectController {
         subjectService.deleteBySubjectId(subjectId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{subjectId}/students")
+    public String getNumberOfStudents(@PathVariable String subjectId) {
+        return subjectId + " Students: " + subjectService.getNumberOfStudents(subjectId);
+    }
+    public String getMethodName(@RequestParam String param) {
+        return new String();
+    }
+    
 }

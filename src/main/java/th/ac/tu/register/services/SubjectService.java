@@ -8,7 +8,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.client.RestTemplate;
 import jakarta.persistence.EntityNotFoundException;
@@ -113,6 +112,18 @@ public class SubjectService {
         } else {
             System.err.println("Not enough available seats");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public long getNumberOfStudents(String subjectId) {
+        String externalApiUrl = "http://localhost:2568/api/enroll/count/" + subjectId;
+        try {
+            ResponseEntity<Integer> response = restTemplate.getForEntity(externalApiUrl, Integer.class);
+            return response.getBody();
+        } catch (Exception e) {
+            System.err.println("Error occurred while fetching number of students: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
         }
     }
 
