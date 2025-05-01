@@ -1,19 +1,38 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import StudentList from './StudentList'; 
-const Home = () => {
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'
+
+function Home() {
     const [name, setName] = useState('');
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    
+    useEffect(() => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/styles/Home.css'; // Ensure correct path to your CSS file
+        document.head.appendChild(link);
+    
+        // Cleanup on unmount
+        return () => {
+          document.head.removeChild(link);
+        };
+    }, []);
+
+
 
     return (
     <>
-        <div><h1>Select Options</h1></div>
-        
-        <div>
-            <div className="button" onClick={navigate('/student-list')}>Student List</div>
-            <div className="button" onClick={navigate('/delete-course')}>Delete Course</div>
-        </div>
+        <div className="container">
+            <div>
+                <h1>Welcome to the Course Management System</h1>
+            </div>
+            <div><h1>Select Options</h1></div>
 
+            <div className='button-container'>
+                <button onClick={() => navigate('/student-list')}>Student List</button>
+                <button onClick={() => navigate('/delete-course')}>Delete Course</button>
+            </div>
+        </div>
     </>
     );
 }

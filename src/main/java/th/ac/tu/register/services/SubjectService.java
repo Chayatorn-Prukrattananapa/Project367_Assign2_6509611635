@@ -115,6 +115,7 @@ public class SubjectService {
         }
     }
 
+    @SuppressWarnings("null")
     public long getNumberOfStudents(String subjectId) {
         String externalApiUrl = "http://localhost:2568/api/enroll/count/" + subjectId;
         try {

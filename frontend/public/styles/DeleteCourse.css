@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-inline: 5vh;
+}
+
+h1 {
+    justify-self: center;
+    font-size: 3rem;
+}
+
+#delete-course-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#delete-course-form > * {
+    margin: 0 1vh 0 1vh;
+}
+
+input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #61dafb;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+label {
+    font-size: 2rem;
+}
+
+.button-container {
+    margin-top: 5vh;
+    justify-content: center;
+    display: flex;
+}

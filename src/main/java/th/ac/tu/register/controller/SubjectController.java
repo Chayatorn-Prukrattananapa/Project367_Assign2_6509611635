@@ -5,12 +5,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import th.ac.tu.register.model.Student;
 import th.ac.tu.register.model.Subject;
 import th.ac.tu.register.services.SubjectService;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -71,5 +68,10 @@ public class SubjectController {
     public String getMethodName(@RequestParam String param) {
         return new String();
     }
+
+    @GetMapping("{subjectId}/student-list")
+    public List<Student> getStudentList(@PathVariable String subjectId) {
+        return subjectService.getStudentsBySubjectId(subjectId);
+    } 
     
 }

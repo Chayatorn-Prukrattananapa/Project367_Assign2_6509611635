@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';         // your current page
-import StudentList from './pages/StudentList';   // the page to go to
-import DeleteCourse from './pages/DeleteCourse'; // the page to go to
+import Home from './pages/Home';
+import StudentList from './pages/StudentList'; 
+import DeleteCourse from './pages/DeleteCourse';
 
 function App() {
   return (
