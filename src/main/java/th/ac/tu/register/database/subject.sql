@@ -19,6 +19,9 @@
 -- Table structure for table `subjects`
 --
 
+CREATE SCHEMA IF NOT EXISTS `CS367_Project_Subject` DEFAULT CHARACTER SET utf8 ;
+USE `CS367_Project_Subject` ;
+
 DROP TABLE IF EXISTS `subjects`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
