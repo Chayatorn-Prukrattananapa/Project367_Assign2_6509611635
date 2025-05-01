@@ -44,4 +44,12 @@ public class SubjectController {
         Subject subject = subjectService.findBySubjectId(subjectId);
         return subjectService.withdrawSubject(subject);
     }
+
+    // Delete subject
+    @DeleteMapping("/delete/{subjectId}")
+    public ResponseEntity<Void> deleteSubject(@PathVariable String subjectId) {
+        // Request Response Status for deleting student by subjectId
+        
+        return subjectService.deleteBySubjectId(subjectId);
+    }
 }

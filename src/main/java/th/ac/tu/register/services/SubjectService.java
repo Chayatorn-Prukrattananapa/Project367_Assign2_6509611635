@@ -11,9 +11,10 @@ import th.ac.tu.register.model.Subject;
 import th.ac.tu.register.repository.SubjectRepository;
 
 /**
- * Requests to Tae: 
- *                  
- * Respond to Tae:  EnrolledStatus, List of subjectId 
+ * Request:     Search for Student that has registered for a subject 
+ *              Delete All Students that has registered for a subject
+ * Response:    List of Subjects
+ *              Response Status for enrollment (Add/Withdraw)
  */
 
 @Service
@@ -41,7 +42,6 @@ public class SubjectService {
     public ResponseEntity<Subject> addSubject(Subject subject) {
         if(subject.getAvailableStudents() > 0){
             subject.setAvailableStudents(subject.getAvailableStudents() - 1);
-            /* communicate to Tae */
             subjectRepository.save(subject);
             return new ResponseEntity<>(subject, HttpStatus.CREATED);
         } else {
@@ -53,12 +53,20 @@ public class SubjectService {
     public ResponseEntity<Subject> withdrawSubject(Subject subject) {
         if(subject.getAvailableStudents() < subject.getMaxSeats()){
             subject.setAvailableStudents(subject.getAvailableStudents() + 1);
-            /* communicate to Tae */
             subjectRepository.save(subject);
             return new ResponseEntity<>(subject, HttpStatus.CREATED);
         } else {
             System.err.println("No one added to this subject");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity<Void> deleteBySubjectId(String subjectId) {
+        if(subjectRepository.existsById(subjectId)) {
+            subjectRepository.deleteById(subjectId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
