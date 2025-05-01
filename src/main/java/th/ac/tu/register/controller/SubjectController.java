@@ -7,6 +7,10 @@ import java.util.List;
 
 import th.ac.tu.register.model.Subject;
 import th.ac.tu.register.services.SubjectService;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 @RestController
@@ -16,6 +20,12 @@ public class SubjectController {
 
     public SubjectController(SubjectService SubjectService) {
         this.subjectService = SubjectService;
+    }
+
+    // Sync available seats
+    @PutMapping("/sync")
+    public void syncAvailableSeats() {
+        subjectService.syncAvailableSeats();
     }
 
     // Find all subjects
@@ -46,10 +56,9 @@ public class SubjectController {
     }
 
     // Delete subject
-    @DeleteMapping("/delete/{subjectId}")
+    @DeleteMapping("/{subjectId}")
     public ResponseEntity<Void> deleteSubject(@PathVariable String subjectId) {
-        // Request Response Status for deleting student by subjectId
-        
-        return subjectService.deleteBySubjectId(subjectId);
+        subjectService.deleteBySubjectId(subjectId);
+        return ResponseEntity.noContent().build();
     }
 }

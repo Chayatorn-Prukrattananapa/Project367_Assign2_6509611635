@@ -12,16 +12,16 @@ public class Subject {
     private String subjectName;
     private int credit;
     private int maxSeats;
-    private int availableStudents;
+    private int availableSeats;
     
     public Subject() {}
 
-    public Subject(String subjectId, String subjectName, int credit, int maxStudent, int availableStudents) {
+    public Subject(String subjectId, String subjectName, int credit, int maxStudent, int availableSeats) {
         this.subjectId = subjectId;
         this.subjectName = subjectName;
         this.credit = credit;
         this.maxSeats = maxStudent;
-        this.availableStudents = availableStudents;
+        this.availableSeats = availableSeats;
     }
 
     public String getSubjectId() {
@@ -56,12 +56,12 @@ public class Subject {
         this.maxSeats = maxStudent;
     }
 
-    public int getAvailableStudents() {
-        return availableStudents;
+    public int getAvailableSeats() {
+        return availableSeats;
     }
 
-    public void setAvailableStudents(int availableStudents) {
-        this.availableStudents = availableStudents;
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Subject {
         result = prime * result + ((subjectName == null) ? 0 : subjectName.hashCode());
         result = prime * result + credit;
         result = prime * result + maxSeats;
-        result = prime * result + availableStudents;
+        result = prime * result + availableSeats;
         return result;
     }
 
@@ -99,7 +99,7 @@ public class Subject {
             return false;
         if (maxSeats != other.maxSeats)
             return false;
-        if (availableStudents != other.availableStudents)
+        if (availableSeats != other.availableSeats)
             return false;
         return true;
     }
@@ -107,7 +107,7 @@ public class Subject {
     @Override
     public String toString() {
         return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", credit=" + credit + ", maxSeats="
-                + maxSeats + ", availableStudents=" + availableStudents + "]";
+                + maxSeats + ", availableSeats=" + availableSeats + "]";
     }
 
     
