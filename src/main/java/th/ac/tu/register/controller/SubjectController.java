@@ -21,12 +21,6 @@ public class SubjectController {
         this.subjectService = SubjectService;
     }
 
-    // Sync available seats
-    @PutMapping("/sync")
-    public void syncAvailableSeats() {
-        subjectService.syncAvailableSeats();
-    }
-
     // Find all subjects
     @GetMapping
     public List<Subject> findAll() {
@@ -74,4 +68,8 @@ public class SubjectController {
         return subjectService.getStudentsBySubjectId(subjectId);
     } 
     
+    @GetMapping("/seats/{subjectId}")
+    public int getAvailableSeats(@PathVariable String subjectId) {
+        return subjectService.getAvailableSeats(subjectId);
+    }
 }
