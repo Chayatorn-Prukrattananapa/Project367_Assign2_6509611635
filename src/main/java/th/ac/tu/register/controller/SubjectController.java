@@ -44,7 +44,7 @@ public class SubjectController {
     }
 
     //
-    @GetMapping("/{subjectId}/students")
+    @GetMapping("/count/{subjectId}")
     public String getNumberOfStudents(@PathVariable String subjectId) {
         return subjectId + " Students: " + subjectService.getNumberOfStudents(subjectId);
     }
@@ -70,6 +70,11 @@ public class SubjectController {
     public boolean isEnoughSeats(@PathVariable String subjectId){
         Subject subject = findBySubjectId(subjectId);
         return subjectService.isEnoughSeats(subject);
+    }
+    
+    @GetMapping("/check/{subjectId}")
+    public boolean isSubjectExist(@RequestParam String subjectId) {
+        return subjectService.isSubjectExist(subjectId);
     }
     
 }

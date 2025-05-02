@@ -31,10 +31,12 @@ public class SubjectService {
 
     // Method Part
 
+    // GET http://localhost:2025/api/subject
     public List<Subject> findAll() {
         return subjectRepository.findAll();
     }
 
+    // GET http://localhost:2025/api/subject/{subjectId}
     public Subject findBySubjectId(String subjectId) {
         Subject subject = subjectRepository.findBySubjectIdIgnoreCase(subjectId);
         if (subject == null) {
@@ -43,6 +45,7 @@ public class SubjectService {
         return subject;
     }
 
+    // GET http://localhost:2025/api/subject/count/{subjectId}
     @SuppressWarnings("null")
     public long getNumberOfStudents(String subjectId) {
         String externalApiUrl = "http://localhost:8080/api/enroll/count/" + subjectId;
@@ -56,6 +59,7 @@ public class SubjectService {
         }
     }
 
+    // GET http://localhost:2025/api/subject/list/{subjectId}
     public List<Student> getStudentsBySubjectId(String subjectId) {
         String externalApiUrl = "http://localhost:8080/api/enroll/" + subjectId;
     
@@ -74,11 +78,12 @@ public class SubjectService {
         }
     }
 
-
+    // GET http://localhost:2025/api/subject/seats/{subjectId}
     public int getMaxSeats(String subjectId) {
         return subjectRepository.findBySubjectIdIgnoreCase(subjectId).getMaxSeats();
     }
 
+    // GET http://localhost:2025/api/subject/seats/check/{subjectId}
     @SuppressWarnings("null")
     public boolean isEnoughSeats(Subject subject){
         String url = "http://localhost:8080/api/enroll/count/" + subject.getSubjectId();
@@ -92,6 +97,7 @@ public class SubjectService {
         return false;
     }
     
+    // DELETE http://localhost:2025/api/subject/{subjectId}
     public ResponseEntity<Void> deleteBySubjectId(String subjectId){
         String url = "http://localhost:8080/api/enroll/" + subjectId;
         try {
@@ -101,5 +107,10 @@ public class SubjectService {
             System.err.println("Error occurred while deleting enrollment: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    // GET  http://localhost:2025/api/subject/check/{subjectId}
+    public boolean isSubjectExist(String subjectId) {
+        return findBySubjectId(subjectId) != null;
     }
 }
