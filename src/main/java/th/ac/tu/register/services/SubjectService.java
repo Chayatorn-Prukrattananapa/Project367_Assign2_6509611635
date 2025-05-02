@@ -42,7 +42,7 @@ public class SubjectService {
             int maxSeats = subject.getMaxSeats();
             int availableSeats = subject.getAvailableSeats();
             
-            String externalApiUrl = "http://localhost:2568/api/enroll/count" + subjectId;
+            String externalApiUrl = "http://localhost:8080/api/enroll/count" + subjectId;
             try {
                 ResponseEntity<Integer> response = restTemplate.getForEntity(externalApiUrl, Integer.class);
                 Integer numberOfStudents = response.getBody();
@@ -117,7 +117,7 @@ public class SubjectService {
 
     @SuppressWarnings("null")
     public long getNumberOfStudents(String subjectId) {
-        String externalApiUrl = "http://localhost:2568/api/enroll/count/" + subjectId;
+        String externalApiUrl = "http://localhost:8080/api/enroll/count/" + subjectId;
         try {
             ResponseEntity<Integer> response = restTemplate.getForEntity(externalApiUrl, Integer.class);
             return response.getBody();
@@ -140,7 +140,7 @@ public class SubjectService {
     }
 
     public List<Student> getStudentsBySubjectId(String subjectId) {
-        String externalApiUrl = "http://localhost:2568/api/enroll/" + subjectId;
+        String externalApiUrl = "http://localhost:8080/api/enroll/" + subjectId;
     
         try {
             ResponseEntity<Student[]> response = restTemplate.getForEntity(externalApiUrl, Student[].class);
@@ -160,7 +160,7 @@ public class SubjectService {
     }
 
     public ResponseEntity<Void> deleteBySubjectId(String subjectId) {
-        String externalApiUrl = "http://localhost:2568/api/enroll/" + subjectId;
+        String externalApiUrl = "http://localhost:8080/api/enroll/" + subjectId;
 
         try {
             // Call the external API to delete the enrollment data
