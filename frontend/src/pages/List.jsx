@@ -13,4 +13,13 @@ function List () {
           document.head.removeChild(link);
         };
     }, []);
+
+    return (
+        <>
+        <h1>Hello</h1>
+        </>
+    );
+
 }
+
+export default List;
