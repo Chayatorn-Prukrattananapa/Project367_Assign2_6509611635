@@ -1,7 +1,5 @@
 package th.ac.tu.register.services;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpMethod;

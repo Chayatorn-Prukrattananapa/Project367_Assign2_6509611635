@@ -104,10 +104,10 @@ function StudentList() {
         
         <div>
           {loading && <p>Loading...</p>}
-                {searchPerformed && !loading && students.length === 0 && <p>No students found.</p>}
+                {searchPerformed && !loading && students.length === 0 && <h2>No Result.</h2>}
                 {students.length > 0 && (
                   <div className="table-container">
-                    <h2>Students in Subject ID: {subjectId}</h2>
+                    <h2>Students in Subject ID {subjectId}: {students.length} results</h2>
                     {showStudentInfo(students)}
                   </div>
                 )}; 
