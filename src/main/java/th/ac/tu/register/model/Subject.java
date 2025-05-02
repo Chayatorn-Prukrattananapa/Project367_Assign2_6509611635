@@ -12,16 +12,14 @@ public class Subject {
     private String subjectName;
     private int credit;
     private int maxSeats;
-    private int availableSeats;
     
     public Subject() {}
 
-    public Subject(String subjectId, String subjectName, int credit, int maxStudent, int availableSeats) {
+    public Subject(String subjectId, String subjectName, int credit, int maxStudent) {
         this.subjectId = subjectId;
         this.subjectName = subjectName;
         this.credit = credit;
         this.maxSeats = maxStudent;
-        this.availableSeats = availableSeats;
     }
 
     public String getSubjectId() {
@@ -56,13 +54,6 @@ public class Subject {
         this.maxSeats = maxStudent;
     }
 
-    public int getAvailableSeats() {
-        return availableSeats;
-    }
-
-    public void setAvailableSeats(int availableSeats) {
-        this.availableSeats = availableSeats;
-    }
 
     @Override
     public int hashCode() {
@@ -72,7 +63,6 @@ public class Subject {
         result = prime * result + ((subjectName == null) ? 0 : subjectName.hashCode());
         result = prime * result + credit;
         result = prime * result + maxSeats;
-        result = prime * result + availableSeats;
         return result;
     }
 
@@ -99,15 +89,13 @@ public class Subject {
             return false;
         if (maxSeats != other.maxSeats)
             return false;
-        if (availableSeats != other.availableSeats)
-            return false;
         return true;
     }
 
     @Override
     public String toString() {
         return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", credit=" + credit + ", maxSeats="
-                + maxSeats + ", availableSeats=" + availableSeats + "]";
+                + maxSeats + "]";
     }
 
     
