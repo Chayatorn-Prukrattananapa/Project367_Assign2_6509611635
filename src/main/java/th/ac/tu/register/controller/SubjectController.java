@@ -9,7 +9,6 @@ import th.ac.tu.register.model.Student;
 import th.ac.tu.register.model.Subject;
 import th.ac.tu.register.services.SubjectService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
