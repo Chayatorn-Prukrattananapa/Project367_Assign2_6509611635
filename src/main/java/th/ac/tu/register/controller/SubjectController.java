@@ -48,9 +48,6 @@ public class SubjectController {
     public String getNumberOfStudents(@PathVariable String subjectId) {
         return subjectId + " Students: " + subjectService.getNumberOfStudents(subjectId);
     }
-    public String getMethodName(@RequestParam String param) {
-        return new String();
-    }
 
     //Request Tae to list student by subjectId
     @GetMapping("/list/{subjectId}")

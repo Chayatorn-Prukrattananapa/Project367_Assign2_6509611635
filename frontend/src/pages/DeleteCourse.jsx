@@ -16,7 +16,7 @@ function DeleteCourse() {
     const deleteCourse = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:2025/api/${subjectId}`, {
+            const response = await fetch(`http://localhost:2025/api/subject/${subjectId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) throw new Error('Network response was not ok');
@@ -51,7 +51,7 @@ function DeleteCourse() {
                 <button onClick={() => navigate('/')}>Back</button>
             </div>
         </div>
-            {message && <p>{message}</p>}
+            {message && <h2>{message}</h2>}
         </>
     );
 }
