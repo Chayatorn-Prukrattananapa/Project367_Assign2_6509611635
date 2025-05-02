@@ -39,8 +39,7 @@ public class SubjectController {
     // Delete subject
     @DeleteMapping("/{subjectId}")
     public ResponseEntity<Void> deleteSubject(@PathVariable String subjectId) {
-        subjectService.deleteBySubjectId(subjectId);
-        return ResponseEntity.noContent().build();
+        return subjectService.deleteBySubjectId(subjectId);
     }
 
     //

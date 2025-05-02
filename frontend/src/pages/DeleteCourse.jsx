@@ -15,14 +15,20 @@ function DeleteCourse() {
 
     const deleteCourse = async (e) => {
         e.preventDefault();
+        let list = [];
         try {
             const response = await fetch(`http://localhost:2025/api/subject/${subjectId}`, {
                 method: 'DELETE',
             });
-            if (!response.ok) throw new Error('Network response was not ok');
-            setMessage('Course deleted successfully');
+            if (response.ok) {
+                setMessage('Course deleted successfully');
+            } else if (response.status === 404) {
+                setMessage('Course not found');
+            } else {
+                setMessage(`Failed to delete course`);
+            }
         } catch (error) {
-            console.error('Error deleting course:', error);
+            console.error('Error deleting course');
             setMessage('Failed to delete course');
         }
     };

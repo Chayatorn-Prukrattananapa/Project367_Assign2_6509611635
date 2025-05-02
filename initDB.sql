@@ -1,0 +1,6 @@
+CREATE USER IF NOT EXISTS 'anfield'@'localhost' IDENTIFIED BY '123456@Abc';
+GRANT ALL PRIVILEGES ON CS367_Project_Subject.* TO 'anfield'@'localhost';
+FLUSH PRIVILEGES;
+
+CREATE SCHEMA IF NOT EXISTS `CS367_Project_Subject` DEFAULT CHARACTER SET utf8 ;
+USE `CS367_Project_Subject` ;

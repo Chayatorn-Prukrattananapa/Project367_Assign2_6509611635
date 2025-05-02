@@ -3,6 +3,7 @@ package th.ac.tu.register.services;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -99,13 +100,19 @@ public class SubjectService {
     
     // DELETE http://localhost:2025/api/subject/{subjectId}
     public ResponseEntity<Void> deleteBySubjectId(String subjectId){
-        String url = "http://localhost:8080/api/enroll/" + subjectId;
-        try {
-            restTemplate.delete(url);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            System.err.println("Error occurred while deleting enrollment: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        if(!isSubjectExist(subjectId)) {
+            System.err.println("This Course never existed");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            String url = "http://localhost:8080/api/enroll/" + subjectId;
+            try {
+                restTemplate.delete(url);
+                subjectRepository.delete(findBySubjectId(subjectId));
+                return ResponseEntity.noContent().build();
+            } catch (Exception e) {
+                System.err.println("Error occurred while deleting enrollment: " + e.getMessage());
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
         }
     }
 

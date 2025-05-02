@@ -10,6 +10,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/student-list" element={<StudentList />} />
         <Route path="/delete-course" element={<DeleteCourse />} />
+        <Route path="/list-all" element={<List />} />
       </Routes>
     </Router>
   );
