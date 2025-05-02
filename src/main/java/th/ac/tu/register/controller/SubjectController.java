@@ -73,7 +73,7 @@ public class SubjectController {
     }
     
     @GetMapping("/check/{subjectId}")
-    public boolean isSubjectExist(@RequestParam String subjectId) {
+    public boolean isSubjectExist(@PathVariable String subjectId) {
         return subjectService.isSubjectExist(subjectId);
     }
     
