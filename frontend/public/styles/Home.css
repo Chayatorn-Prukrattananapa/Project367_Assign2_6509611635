@@ -10,10 +10,14 @@
     flex-direction: row;
     margin-top: 5vh;
     justify-content: center;
-    width: 100%;
+    gap: 2rem;
+    width: 80vh;
+    button {
+        flex: 1;
+    }
 }
 
-button {
+button {    
     background-color: #61dafb;
     color: white;
     border: none;
@@ -21,5 +25,5 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin: 0 5vh;
+    
 }

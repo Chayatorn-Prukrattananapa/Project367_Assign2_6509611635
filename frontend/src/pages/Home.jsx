@@ -31,6 +31,7 @@ function Home() {
             <div className='button-container'>
                 <button onClick={() => navigate('/student-list')}>Student List</button>
                 <button onClick={() => navigate('/delete-course')}>Delete Course</button>
+                <button onClick={() => navigate('/list-all')}>List All</button>
             </div>
         </div>
     </>

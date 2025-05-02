@@ -1,0 +1,80 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-inline: 5vh;
+}
+
+
+h1 {
+    justify-self: center;
+    font-size: 3rem;
+}
+
+#search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#search-form > * {
+    margin: 0 1vh 0 1vh;
+}
+
+input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #61dafb;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+label {
+    font-size: 2rem;
+}
+
+.button-container {
+    position: relative;
+    margin-bottom: 30px;
+    bottom: 30px;
+  }
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.course-section {
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+}
+
+h2, h1 {
+    justify-self: center;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 1rem auto; /* This centers the table */
+    width: 100%; /* Optional: controls table width */
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}

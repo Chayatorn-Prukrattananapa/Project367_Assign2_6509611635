@@ -110,7 +110,7 @@ function StudentList() {
                     <h2>Students in Subject ID {subjectId}: {students.length} results</h2>
                     {showStudentInfo(students)}
                   </div>
-                )}; 
+                )}
         </div>
     </>
     );
