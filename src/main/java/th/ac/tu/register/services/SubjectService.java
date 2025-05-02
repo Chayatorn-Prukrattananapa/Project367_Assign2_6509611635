@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.web.client.RestTemplate;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.criteria.CriteriaBuilder.In;
 import th.ac.tu.register.model.Student;
 import th.ac.tu.register.model.Subject;
 import th.ac.tu.register.repository.SubjectRepository;
