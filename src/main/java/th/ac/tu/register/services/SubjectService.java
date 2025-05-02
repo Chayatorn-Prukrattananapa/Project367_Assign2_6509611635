@@ -33,6 +33,7 @@ public class SubjectService {
     }
 
     // Method Part
+
     public List<Subject> findAll() {
         return subjectRepository.findAll();
     }
@@ -132,9 +133,8 @@ public class SubjectService {
         }
     }
 
-    public int getAvailableSeats(String subjectId) {
-        return subjectRepository.findBySubjectIdIgnoreCase(subjectId).getAvailableSeats();
-        
+    public int getMaxSeats(String subjectId) {
+        return subjectRepository.findBySubjectIdIgnoreCase(subjectId).getMaxSeats();
     }
 
 }

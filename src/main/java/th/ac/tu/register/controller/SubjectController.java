@@ -69,7 +69,7 @@ public class SubjectController {
     } 
     
     @GetMapping("/seats/{subjectId}")
-    public int getAvailableSeats(@PathVariable String subjectId) {
-        return subjectService.getAvailableSeats(subjectId);
+    public int getMaxSeats(@PathVariable String subjectId) {
+        return subjectService.getMaxSeats(subjectId);
     }
 }
