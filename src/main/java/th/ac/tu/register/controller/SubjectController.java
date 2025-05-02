@@ -8,6 +8,9 @@ import java.util.List;
 import th.ac.tu.register.model.Student;
 import th.ac.tu.register.model.Subject;
 import th.ac.tu.register.services.SubjectService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -33,21 +36,6 @@ public class SubjectController {
         return subjectService.findBySubjectId(subjectId);
     }
 
-    // Add or withdraw subject
-    @PutMapping("/add/{subjectId}")
-    public ResponseEntity<Subject> addSubject(@PathVariable String subjectId) {
-        Subject subject = subjectService.findBySubjectId(subjectId);
-        return subjectService.addSubject(subject);
-    }
-
-    // Withdraw subject
-    @PutMapping("/withdraw/{subjectId}")
-    public ResponseEntity<Subject> withdrawSubject(@PathVariable String subjectId) {
-        // Assuming you want to get the subjectId from the request body
-        Subject subject = subjectService.findBySubjectId(subjectId);
-        return subjectService.withdrawSubject(subject);
-    }
-
     // Delete subject
     @DeleteMapping("/{subjectId}")
     public ResponseEntity<Void> deleteSubject(@PathVariable String subjectId) {
@@ -55,6 +43,7 @@ public class SubjectController {
         return ResponseEntity.noContent().build();
     }
 
+    //
     @GetMapping("/{subjectId}/students")
     public String getNumberOfStudents(@PathVariable String subjectId) {
         return subjectId + " Students: " + subjectService.getNumberOfStudents(subjectId);
@@ -63,13 +52,24 @@ public class SubjectController {
         return new String();
     }
 
+    //Request Tae to list student by subjectId
     @GetMapping("/list/{subjectId}")
     public List<Student> getStudentList(@PathVariable String subjectId) {
         return subjectService.getStudentsBySubjectId(subjectId);
     } 
     
+    //Provide Tae to return max seats
     @GetMapping("/seats/{subjectId}")
     public int getMaxSeats(@PathVariable String subjectId) {
         return subjectService.getMaxSeats(subjectId);
     }
+
+
+    //Provide Tae to check seats enough or not
+    @GetMapping("/seats/check/{subjectId}")
+    public boolean isEnoughSeats(@PathVariable String subjectId){
+        Subject subject = findBySubjectId(subjectId);
+        return subjectService.isEnoughSeats(subject);
+    }
+    
 }
