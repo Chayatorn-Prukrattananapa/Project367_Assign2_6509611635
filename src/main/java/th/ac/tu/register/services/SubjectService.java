@@ -33,65 +33,6 @@ public class SubjectService {
     }
 
     // Method Part
-
-    public void syncAvailableSeats() {
-        List<Subject> subjects = subjectRepository.findAll();
-        List<Subject> subjectsToUpdate = new ArrayList<>();
-        for (Subject subject : subjects) {
-            String subjectId = subject.getSubjectId();
-            int maxSeats = subject.getMaxSeats();
-            int availableSeats = subject.getAvailableSeats();
-            
-            String externalApiUrl = "http://localhost:8080/api/enroll/count" + subjectId;
-            try {
-                ResponseEntity<Integer> response = restTemplate.getForEntity(externalApiUrl, Integer.class);
-                Integer numberOfStudents = response.getBody();
-
-                if (numberOfStudents == null) {
-                    subject.setAvailableSeats(maxSeats);
-                    subjectsToUpdate.add(subject);
-                    continue;
-                }
-
-                if (numberOfStudents < 0) {
-                    System.err.println("Invalid number of students for subjectId: " + subjectId);
-                    continue;
-                }
-
-                if (numberOfStudents > maxSeats) {
-                    subject.setMaxSeats(numberOfStudents);
-                    subject.setAvailableSeats(0);
-                    subjectsToUpdate.add(subject);
-                    System.out.println("Updated max seats for subjectId: " + subjectId);
-                    continue;
-                }
-
-                int realAvailableSeats = maxSeats - numberOfStudents;
-
-                if (realAvailableSeats != availableSeats) {
-                    subject.setAvailableSeats(realAvailableSeats);
-                    subjectsToUpdate.add(subject);
-                    System.out.println("Updated available seats for subjectId: " + subjectId);
-                    System.out.println("New available seats: " + realAvailableSeats);
-                } else {
-                    System.out.println("No update needed for subjectId: " + subjectId);
-                    continue;
-                }
-
-            } catch (Exception e) {
-                System.err.println("Error occurred while fetching number of students: " + e.getMessage());
-                e.printStackTrace();
-                continue;
-            }
-        }
-        if (!subjectsToUpdate.isEmpty()) {
-            subjectRepository.saveAll(subjectsToUpdate);
-            System.out.println("Updated available seats for subjects: " + subjectsToUpdate);
-        } else {
-            System.out.println("No subjects to update.");
-        }
-    }
-
     public List<Subject> findAll() {
         return subjectRepository.findAll();
     }
@@ -143,8 +84,7 @@ public class SubjectService {
         String externalApiUrl = "http://localhost:8080/api/enroll/" + subjectId;
     
         try {
-            ResponseEntity<Student[]> response = restTemplate.getForEntity(externalApiUrl, Student[].class);
-            Student[] students = response.getBody();
+            Student[] students = restTemplate.getForObject(externalApiUrl, Student[].class);
             
             if (students == null || students.length == 0) {
                 System.err.println("No students found for subjectId: " + subjectId);
@@ -164,11 +104,11 @@ public class SubjectService {
 
         try {
             // Call the external API to delete the enrollment data
-            ResponseEntity<Integer> response = restTemplate.exchange(
+            ResponseEntity<Void> response = restTemplate.exchange(
             externalApiUrl,
             HttpMethod.DELETE,
             null,
-            Integer.class
+            Void.class
             );
             if (response.getStatusCode() == HttpStatus.OK) {
                 // If the external API call is successful, delete the subject from the local database
@@ -190,6 +130,11 @@ public class SubjectService {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public int getAvailableSeats(String subjectId) {
+        return subjectRepository.findBySubjectIdIgnoreCase(subjectId).getAvailableSeats();
+        
     }
 
 }

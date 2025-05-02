@@ -29,11 +29,17 @@ function StudentList() {
       setSearchPerformed(true);
     
       try {
-        const response = await fetch(`http://localhost:2025/api/subject/${subjectId}/student-list`);
+        console.log("Fetching students for subject ID:", subjectId);
+        // Fetch students from the backend API
+        const response = await fetch(`http://localhost:2025/api/subject/list/${subjectId}`, {
+          method: 'GET',
+          
+        });
         if (!response.ok) throw new Error("Network response was not ok");
     
         const data = await response.json();
         setStudents(data);
+        console.log("Fetched students:", data);
       } catch (error) {
         console.error("Error fetching students:", error);
         setStudents([]);
@@ -41,6 +47,37 @@ function StudentList() {
         setLoading(false);
       }
     };
+
+    const showStudentInfo = (student) => {
+      return (
+        <table className="student-table">
+                    <thead>
+                      <tr>
+                        <th>Student ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Major</th>
+                        <th>Minor</th>
+                        <th>Faculty</th>
+                        <th>Year</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      { students.map((student, index) => (
+                        <tr key={index}>
+                          <td>{student.studentId}</td>
+                          <td>{student.firstName}</td>
+                          <td>{student.lastName}</td>
+                          <td>{student.major}</td>
+                          <td>{student.minor}</td>
+                          <td>{student.faculty}</td>
+                          <td>{student.year}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+    );};
+
 
     return (
     <><div className="container">
@@ -68,16 +105,12 @@ function StudentList() {
         <div>
           {loading && <p>Loading...</p>}
                 {searchPerformed && !loading && students.length === 0 && <p>No students found.</p>}
-
                 {students.length > 0 && (
-                  <ol>
-                    {students.map((student, index) => (
-                      <li key={index}>
-                        {student.name} ({student.studentId})
-                      </li>
-                    ))}
-                  </ol>
-                )}
+                  <div className="table-container">
+                    <h2>Students in Subject ID: {subjectId}</h2>
+                    {showStudentInfo(students)}
+                  </div>
+                )}; 
         </div>
     </>
     );

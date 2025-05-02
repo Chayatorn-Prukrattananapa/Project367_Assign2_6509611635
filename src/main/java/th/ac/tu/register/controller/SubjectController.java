@@ -69,7 +69,7 @@ public class SubjectController {
         return new String();
     }
 
-    @GetMapping("{subjectId}/student-list")
+    @GetMapping("/list/{subjectId}")
     public List<Student> getStudentList(@PathVariable String subjectId) {
         return subjectService.getStudentsBySubjectId(subjectId);
     } 
