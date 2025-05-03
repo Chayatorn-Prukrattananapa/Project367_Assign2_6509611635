@@ -60,7 +60,7 @@ function List () {
           return course.map((courseItem) => (
             <div className="table-container" key={courseItem.subjectId}>
               <div className="course-section">
-                <h2>{courseItem.subjectName}</h2>
+                <h2>{courseItem.subjectName}: {courseItem.subjectId}</h2>
                 <table className="student-table">
                   <thead>
                     <tr>
