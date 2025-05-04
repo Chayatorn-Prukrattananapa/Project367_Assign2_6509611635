@@ -3,5 +3,5 @@ INSERT INTO `subjects` VALUES
 ('CS102',3,50,'Problem Solving'),
 ('CS111',3,70,'Object Oriented'),
 ('CS213',3,50,'Data Structures'),
-('CS217',3,50,'Algorithms'),
+('CS217',3,1,'Algorithms'),
 ('CS367',3,120,'Web Services');

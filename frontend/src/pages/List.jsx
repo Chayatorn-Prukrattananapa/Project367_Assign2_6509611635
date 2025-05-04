@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 function List () {
     const [course, setCourse] = useState([]);
     const [students, setStudents] = useState({});
+    const hasFetched = React.useRef(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,39 +20,42 @@ function List () {
         }, []);
 
     useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await fetch("http://localhost:2025/api/subject", {
-              method: "GET",
-            });
+      if (hasFetched.current) return; // prevent double fetch
+      hasFetched.current = true;  
+      const fetchData = async () => {
+        try {
+          const response = await fetch("http://localhost:2025/api/subject", {
+            method: "GET",
+          });
     
-            if (!response.ok) throw new Error("Response not ok");
+          if (!response.ok) throw new Error("Response not ok");
     
-            const coursesData = await response.json();
-            setCourse(coursesData);
+          const coursesData = await response.json();
+          setCourse(coursesData);
     
-            // Fetch students for each course
-            const newStudentsMap = {};
-            for (const c of coursesData) {
-              try {
-                const studentRes = await fetch(
-                  `http://localhost:2025/api/subject/list/${c.subjectId}`,
-                  { method: "GET" }
-                );
-                if (!studentRes.ok) throw new Error("Student fetch failed");
-    
-                const studentData = await studentRes.json();
-                newStudentsMap[c.subjectId] = studentData;
-              } catch (err) {
-                console.error(`Error fetching students for ${c.subjectId}:`, err);
-                newStudentsMap[c.subjectId] = [];
-              }
+          // Fetch students for each course
+          const newStudentsMap = {};
+          for (const c of coursesData) {
+            try {
+              const studentRes = await fetch(
+                `http://localhost:2025/api/subject/list/${c.subjectId}`,
+                { method: "GET" }
+              );
+              if (!studentRes.ok) throw new Error("Student fetch failed");
+              console.log(`Fetching students for ${c.subjectId}`);
+              
+              const studentData = await studentRes.json();
+              newStudentsMap[c.subjectId] = studentData;
+            } catch (err) {
+              console.error(`Error fetching students for ${c.subjectId}:`, err);
+              newStudentsMap[c.subjectId] = [];
             }
-            setStudents(newStudentsMap);
-          } catch (err) {
-            console.error("Can't fetch courses:", err);
           }
-        };
+          setStudents(newStudentsMap);
+        } catch (err) {
+          console.error("Can't fetch courses:", err);
+        }
+      };
     
         fetchData();
       }, []);
@@ -60,7 +64,7 @@ function List () {
           return course.map((courseItem) => (
             <div className="table-container" key={courseItem.subjectId}>
               <div className="course-section">
-                <h2>{courseItem.subjectName}: {courseItem.subjectId}</h2>
+                <h2>{courseItem.subjectId}: {courseItem.subjectName}</h2>
                 <table className="student-table">
                   <thead>
                     <tr>

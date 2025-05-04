@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import jakarta.persistence.EntityNotFoundException;
 import th.ac.tu.register.model.Student;
@@ -71,9 +72,12 @@ public class SubjectService {
                 return List.of();
             }
             return List.of(students);
-        } catch (Exception e) {
-            System.err.println("Error occurred while fetching students: " + e.getMessage());
-            e.printStackTrace();
+        } catch (HttpClientErrorException.NotFound e) {
+            System.err.println("Subject ID not found: " + subjectId + " (404)");
+            return List.of();
+        
+        } catch (RestClientException e) {
+            System.err.println("Unexpected error fetching subjectId " + subjectId + ": " + e.getMessage());
             return List.of();
         }
     }
@@ -89,6 +93,8 @@ public class SubjectService {
         String url = "http://localhost:8080/api/enroll/count/" + subject.getSubjectId();
         try {
             int studentCount = restTemplate.getForObject(url, Integer.class);
+            System.out.println(subject.getMaxSeats());
+            System.out.println(studentCount);
             return subject.getMaxSeats() > studentCount ;
         } catch (Exception e) {
             System.err.println("Error occurred while fetching students");
